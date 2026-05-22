@@ -1,0 +1,141 @@
+/* RESET */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+/* BODY */
+body{
+    background-color:#0f172a;
+    color:white;
+    line-height:1.6;
+}
+
+/* HEADER */
+header{
+    height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:linear-gradient(to right,#0f172a,#1e293b);
+    padding:20px;
+}
+
+header h1{
+    font-size:70px;
+    color:#38bdf8;
+    margin-bottom:10px;
+}
+
+header p{
+    font-size:22px;
+    color:#cbd5e1;
+}
+
+/* SECTION */
+section{
+    padding:80px 10%;
+}
+
+/* HEADINGS */
+h2{
+    font-size:40px;
+    margin-bottom:25px;
+    color:#38bdf8;
+    border-bottom:2px solid #38bdf8;
+    display:inline-block;
+    padding-bottom:5px;
+}
+
+/* ABOUT */
+section p{
+    font-size:18px;
+    color:#cbd5e1;
+    max-width:800px;
+}
+
+/* SKILLS */
+ul{
+    list-style:none;
+    display:flex;
+    flex-wrap:wrap;
+    gap:15px;
+    margin-top:20px;
+}
+
+ul li{
+    background:#1e293b;
+    padding:12px 22px;
+    border-radius:10px;
+    transition:0.3s;
+    cursor:pointer;
+    font-weight:bold;
+}
+
+ul li:hover{
+    background:#38bdf8;
+    color:black;
+    transform:translateY(-5px);
+}
+
+/* PROJECTS */
+h3{
+    margin-top:30px;
+    color:#ffffff;
+    font-size:26px;
+}
+
+section h3 + p{
+    background:#1e293b;
+    padding:20px;
+    border-radius:12px;
+    margin-top:10px;
+    transition:0.3s;
+}
+
+section h3 + p:hover{
+    transform:scale(1.02);
+    background:#334155;
+}
+
+/* CONTACT */
+.contact p{
+    margin:10px 0;
+}
+
+/* FOOTER */
+footer{
+    text-align:center;
+    padding:25px;
+    background:#020617;
+    color:#94a3b8;
+    margin-top:40px;
+}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+
+    header h1{
+        font-size:45px;
+    }
+
+    header p{
+        font-size:18px;
+    }
+
+    h2{
+        font-size:32px;
+    }
+
+    section{
+        padding:60px 7%;
+    }
+
+    ul{
+        flex-direction:column;
+    }
+}
