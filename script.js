@@ -1,98 +1,172 @@
-// ===== Portfolio JavaScript =====
+// ===== TYPING EFFECT =====
 
-// Typing Effect
 const typingText = document.querySelector(".typing");
 
 const words = [
-  "Frontend Developer",
-  "C++ Programmer",
-  "DSA Learner",
-  "Web Developer"
+    "Frontend Developer",
+    "C++ Programmer",
+    "DSA Learner",
+    "React Developer",
+    "Problem Solver"
 ];
 
 let wordIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
 
-function typeEffect() {
-  const currentWord = words[wordIndex];
+function typeEffect(){
 
-  if (!isDeleting) {
-    typingText.textContent = currentWord.substring(0, charIndex + 1);
-    charIndex++;
+    const currentWord = words[wordIndex];
 
-    if (charIndex === currentWord.length) {
-      isDeleting = true;
-      setTimeout(typeEffect, 1200);
-      return;
+    if(!isDeleting){
+
+        typingText.textContent =
+        currentWord.substring(0,charIndex + 1);
+
+        charIndex++;
+
+        if(charIndex === currentWord.length){
+
+            isDeleting = true;
+
+            setTimeout(typeEffect,1500);
+
+            return;
+        }
+
+    }else{
+
+        typingText.textContent =
+        currentWord.substring(0,charIndex - 1);
+
+        charIndex--;
+
+        if(charIndex === 0){
+
+            isDeleting = false;
+
+            wordIndex =
+            (wordIndex + 1) % words.length;
+        }
     }
-  } else {
-    typingText.textContent = currentWord.substring(0, charIndex - 1);
-    charIndex--;
 
-    if (charIndex === 0) {
-      isDeleting = false;
-      wordIndex = (wordIndex + 1) % words.length;
-    }
-  }
-
-  setTimeout(typeEffect, isDeleting ? 60 : 120);
+    setTimeout(typeEffect,isDeleting ? 70 : 120);
 }
 
 typeEffect();
 
-// ===== Navbar Shadow on Scroll =====
-const navbar = document.querySelector("header");
 
-window.addEventListener("scroll", () => {
-  if (window.scrollY > 50) {
-    navbar.classList.add("sticky");
-  } else {
-    navbar.classList.remove("sticky");
-  }
+// ===== STICKY HEADER =====
+
+const header = document.querySelector(".header");
+
+window.addEventListener("scroll",()=>{
+
+    header.classList.toggle(
+        "sticky",
+        window.scrollY > 50
+    );
+
 });
 
-// ===== Scroll Reveal Animation =====
-const sections = document.querySelectorAll("section");
 
-window.addEventListener("scroll", revealSections);
+// ===== CARD ANIMATION =====
 
-function revealSections() {
-  const triggerBottom = window.innerHeight * 0.8;
+const cards = document.querySelectorAll(".card");
 
-  sections.forEach((section) => {
-    const sectionTop = section.getBoundingClientRect().top;
+cards.forEach((card)=>{
 
-    if (sectionTop < triggerBottom) {
-      section.classList.add("show");
-    }
-  });
-}
+    card.addEventListener("mousemove",(e)=>{
 
-// ===== Smooth Scroll =====
-const navLinks = document.querySelectorAll("nav a");
+        const rect = card.getBoundingClientRect();
 
-navLinks.forEach((link) => {
-  link.addEventListener("click", (e) => {
-    e.preventDefault();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
 
-    const targetId = link.getAttribute("href");
-    const targetSection = document.querySelector(targetId);
-
-    targetSection.scrollIntoView({
-      behavior: "smooth"
+        card.style.background = `
+        radial-gradient(
+            circle at ${x}px ${y}px,
+            rgba(0,229,255,0.18),
+            #111827
+        )
+        `;
     });
-  });
+
+    card.addEventListener("mouseleave",()=>{
+
+        card.style.background = "#111827";
+
+    });
+
 });
 
-// ===== Contact Form Alert =====
-const form = document.querySelector("form");
 
-if (form) {
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    alert("Message sent successfully!");
-    form.reset();
-  });
+// ===== ACTIVE NAV LINK =====
+
+const navLinks =
+document.querySelectorAll(".navbar a");
+
+navLinks.forEach((link)=>{
+
+    link.addEventListener("click",()=>{
+
+        navLinks.forEach((item)=>{
+            item.classList.remove("active");
+        });
+
+        link.classList.add("active");
+
+    });
+
+});
+
+
+// ===== SCROLL REVEAL =====
+
+const revealElements =
+document.querySelectorAll(".home-content, .card");
+
+window.addEventListener("scroll",reveal);
+
+function reveal(){
+
+    revealElements.forEach((el)=>{
+
+        const windowHeight =
+        window.innerHeight;
+
+        const revealTop =
+        el.getBoundingClientRect().top;
+
+        if(revealTop < windowHeight - 100){
+
+            el.style.opacity = "1";
+            el.style.transform =
+            "translateY(0)";
+        }
+
+    });
+
 }
 
+reveal();
+
+
+// ===== INITIAL STYLE =====
+
+revealElements.forEach((el)=>{
+
+    el.style.opacity = "0";
+    el.style.transform =
+    "translateY(40px)";
+    el.style.transition =
+    "all 0.8s ease";
+
+});
+
+
+// ===== CONSOLE MESSAGE =====
+
+console.log(
+    "Sunny Raj Portfolio Loaded Successfully 🚀"
+);
