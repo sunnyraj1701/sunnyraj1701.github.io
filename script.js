@@ -1,172 +1,156 @@
-// ===== TYPING EFFECT =====
+// TYPING EFFECT
 
-const typingText = document.querySelector(".typing");
-
-const words = [
+const roles = [
     "Frontend Developer",
     "C++ Programmer",
     "DSA Learner",
-    "React Developer",
+    "MERN Stack Learner",
     "Problem Solver"
 ];
 
-let wordIndex = 0;
+const typingElement = document.querySelector(".typing");
+
+let roleIndex = 0;
 let charIndex = 0;
 let isDeleting = false;
 
-function typeEffect(){
+function typeEffect() {
 
-    const currentWord = words[wordIndex];
+    const currentRole = roles[roleIndex];
 
-    if(!isDeleting){
-
-        typingText.textContent =
-        currentWord.substring(0,charIndex + 1);
-
+    if (!isDeleting) {
+        typingElement.textContent = currentRole.substring(0, charIndex + 1);
         charIndex++;
 
-        if(charIndex === currentWord.length){
-
+        if (charIndex === currentRole.length) {
             isDeleting = true;
-
-            setTimeout(typeEffect,1500);
-
+            setTimeout(typeEffect, 1500);
             return;
         }
-
-    }else{
-
-        typingText.textContent =
-        currentWord.substring(0,charIndex - 1);
-
+    } else {
+        typingElement.textContent = currentRole.substring(0, charIndex - 1);
         charIndex--;
 
-        if(charIndex === 0){
-
+        if (charIndex === 0) {
             isDeleting = false;
-
-            wordIndex =
-            (wordIndex + 1) % words.length;
+            roleIndex = (roleIndex + 1) % roles.length;
         }
     }
 
-    setTimeout(typeEffect,isDeleting ? 70 : 120);
+    setTimeout(typeEffect, isDeleting ? 50 : 100);
 }
 
 typeEffect();
 
 
-// ===== STICKY HEADER =====
+// ACTIVE NAVBAR LINK ON SCROLL
+
+const sections = document.querySelectorAll("section");
+const navLinks = document.querySelectorAll(".navbar a");
+
+window.addEventListener("scroll", () => {
+
+    let current = "";
+
+    sections.forEach(section => {
+
+        const sectionTop = section.offsetTop - 150;
+        const sectionHeight = section.clientHeight;
+
+        if (pageYOffset >= sectionTop) {
+            current = section.getAttribute("id");
+        }
+    });
+
+    navLinks.forEach(link => {
+
+        link.classList.remove("active");
+
+        if (link.getAttribute("href") === `#${current}`) {
+            link.classList.add("active");
+        }
+    });
+});
+
+
+// HEADER SHADOW ON SCROLL
 
 const header = document.querySelector(".header");
 
-window.addEventListener("scroll",()=>{
+window.addEventListener("scroll", () => {
 
-    header.classList.toggle(
-        "sticky",
-        window.scrollY > 50
-    );
-
+    if (window.scrollY > 50) {
+        header.style.boxShadow = "0 0 20px rgba(0,0,0,0.3)";
+    } else {
+        header.style.boxShadow = "none";
+    }
 });
 
 
-// ===== CARD ANIMATION =====
+// SMOOTH REVEAL ANIMATION
 
-const cards = document.querySelectorAll(".card");
+const revealElements = document.querySelectorAll(
+    ".card, .project-card, .achievement-box, .skill-box"
+);
 
-cards.forEach((card)=>{
+function reveal() {
 
-    card.addEventListener("mousemove",(e)=>{
+    revealElements.forEach(element => {
 
-        const rect = card.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
 
-        const x = e.clientX - rect.left;
-        const y = e.clientY - rect.top;
-
-        card.style.background = `
-        radial-gradient(
-            circle at ${x}px ${y}px,
-            rgba(0,229,255,0.18),
-            #111827
-        )
-        `;
-    });
-
-    card.addEventListener("mouseleave",()=>{
-
-        card.style.background = "#111827";
-
-    });
-
-});
-
-
-// ===== ACTIVE NAV LINK =====
-
-const navLinks =
-document.querySelectorAll(".navbar a");
-
-navLinks.forEach((link)=>{
-
-    link.addEventListener("click",()=>{
-
-        navLinks.forEach((item)=>{
-            item.classList.remove("active");
-        });
-
-        link.classList.add("active");
-
-    });
-
-});
-
-
-// ===== SCROLL REVEAL =====
-
-const revealElements =
-document.querySelectorAll(".home-content, .card");
-
-window.addEventListener("scroll",reveal);
-
-function reveal(){
-
-    revealElements.forEach((el)=>{
-
-        const windowHeight =
-        window.innerHeight;
-
-        const revealTop =
-        el.getBoundingClientRect().top;
-
-        if(revealTop < windowHeight - 100){
-
-            el.style.opacity = "1";
-            el.style.transform =
-            "translateY(0)";
+        if (elementTop < windowHeight - 100) {
+            element.style.opacity = "1";
+            element.style.transform = "translateY(0)";
         }
-
     });
-
 }
 
+// Initial styles
+revealElements.forEach(element => {
+    element.style.opacity = "0";
+    element.style.transform = "translateY(40px)";
+    element.style.transition = "all 0.6s ease";
+});
+
+window.addEventListener("scroll", reveal);
 reveal();
 
 
-// ===== INITIAL STYLE =====
+// BACK TO TOP BUTTON
 
-revealElements.forEach((el)=>{
+const topButton = document.createElement("button");
 
-    el.style.opacity = "0";
-    el.style.transform =
-    "translateY(40px)";
-    el.style.transition =
-    "all 0.8s ease";
+topButton.innerHTML = "↑";
+topButton.classList.add("top-btn");
 
+document.body.appendChild(topButton);
+
+topButton.style.position = "fixed";
+topButton.style.bottom = "20px";
+topButton.style.right = "20px";
+topButton.style.width = "50px";
+topButton.style.height = "50px";
+topButton.style.borderRadius = "50%";
+topButton.style.fontSize = "20px";
+topButton.style.cursor = "pointer";
+topButton.style.display = "none";
+topButton.style.zIndex = "1000";
+
+window.addEventListener("scroll", () => {
+
+    if (window.scrollY > 300) {
+        topButton.style.display = "block";
+    } else {
+        topButton.style.display = "none";
+    }
 });
 
+topButton.addEventListener("click", () => {
 
-// ===== CONSOLE MESSAGE =====
-
-console.log(
-    "Sunny Raj Portfolio Loaded Successfully 🚀"
-);
+    window.scrollTo({
+        top: 0,
+        behavior: "smooth"
+    });
+});

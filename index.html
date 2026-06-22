@@ -2,18 +2,15 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunny Raj | Portfolio</title>
 
-    <title>Sunny Raj Portfolio</title>
+    <link rel="stylesheet" href="style.css">
 
-    <link rel="stylesheet" href="style.css" />
-
-    <!-- FONT AWESOME -->
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
-    />
+    <!-- Font Awesome -->
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 
 <body>
@@ -22,26 +19,22 @@
 
     <header class="header">
 
-        <a href="#" class="logo">
-            Portfolio.
-        </a>
+        <a href="#home" class="logo">Portfolio.</a>
 
         <nav class="navbar">
-
-            <a href="#" class="active">Home</a>
+            <a href="#home" class="active">Home</a>
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
             <a href="#projects">Projects</a>
+            <a href="#achievements">Achievements</a>
             <a href="#contact">Contact</a>
-
         </nav>
 
     </header>
 
-
     <!-- HOME SECTION -->
 
-    <section class="home">
+    <section class="home" id="home">
 
         <div class="home-content">
 
@@ -51,23 +44,32 @@
 
             <h3>
                 And I'm a
-                <span class="typing"></span>
+                <span class="typing">Frontend Developer</span>
             </h3>
 
             <p>
-                Aspiring Software Developer passionate about Web Development, DSA, and problem-solving. Currently learning the MERN Stack and improving my coding skills through consistent LeetCode practice. Dedicated to building efficient, user-friendly applications and continuously expanding my technical expertise.
+                Aspiring Software Developer passionate about Web Development,
+                Data Structures & Algorithms, and problem-solving. Currently
+                learning the MERN Stack and improving my coding skills through
+                consistent LeetCode practice. Dedicated to building efficient,
+                user-friendly applications and continuously expanding my
+                technical expertise.
             </p>
 
             <!-- SOCIAL ICONS -->
 
             <div class="social-media">
 
-                <a href="#">
+                <a href="https://github.com/sunnyraj1701" target="_blank">
                     <i class="fa-brands fa-github"></i>
                 </a>
 
-                <a href="#">
+                <a href="#" target="_blank">
                     <i class="fa-brands fa-linkedin-in"></i>
+                </a>
+
+                <a href="#" target="_blank">
+                    <i class="fa-solid fa-envelope"></i>
                 </a>
 
             </div>
@@ -88,8 +90,7 @@
 
         </div>
 
-
-        <!-- INTERESTING RIGHT SECTION -->
+        <!-- TECH STACK BOX -->
 
         <div class="tech-box">
 
@@ -126,6 +127,160 @@
         </div>
 
     </section>
+
+    <!-- ABOUT SECTION -->
+
+    <section class="about" id="about">
+
+        <h2 class="section-title">About Me</h2>
+
+        <div class="about-content">
+
+            <p>
+                I am a Computer Science student and aspiring Software Developer
+                with a strong interest in Web Development, Data Structures &
+                Algorithms, and Problem Solving.
+
+                I enjoy building modern web applications and continuously
+                improving my coding skills through LeetCode and personal
+                projects. My current focus is learning the MERN Stack and
+                becoming a Full Stack Developer.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- SKILLS SECTION -->
+
+    <section class="skills" id="skills">
+
+        <h2 class="section-title">Skills</h2>
+
+        <div class="skills-container">
+
+            <div class="skill-box">C++</div>
+            <div class="skill-box">Data Structures</div>
+            <div class="skill-box">Algorithms</div>
+            <div class="skill-box">HTML</div>
+            <div class="skill-box">CSS</div>
+            <div class="skill-box">JavaScript</div>
+            <div class="skill-box">React</div>
+            <div class="skill-box">Git</div>
+            <div class="skill-box">GitHub</div>
+
+        </div>
+
+    </section>
+
+    <!-- PROJECTS SECTION -->
+
+    <section class="projects" id="projects">
+
+        <h2 class="section-title">Projects</h2>
+
+        <div class="projects-container">
+
+            <div class="project-card">
+                <h3>Personal Portfolio Website</h3>
+
+                <p>
+                    Responsive portfolio website developed using HTML, CSS and
+                    JavaScript.
+                </p>
+
+                <a href="#" class="project-btn">View Project</a>
+            </div>
+
+            <div class="project-card">
+                <h3>LeetCode Solutions Repository</h3>
+
+                <p>
+                    Collection of Data Structures and Algorithms solutions in
+                    C++.
+                </p>
+
+                <a href="#" class="project-btn">GitHub</a>
+            </div>
+
+            <div class="project-card">
+                <h3>Population Growth Simulator</h3>
+
+                <p>
+                    Python-based project demonstrating recurrence relations and
+                    growth prediction.
+                </p>
+
+                <a href="#" class="project-btn">View Project</a>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ACHIEVEMENTS SECTION -->
+
+    <section class="achievements" id="achievements">
+
+        <h2 class="section-title">Achievements</h2>
+
+        <div class="achievement-container">
+
+            <div class="achievement-box">
+                <i class="fa-solid fa-trophy"></i>
+                <h3>300+ Problems Solved</h3>
+                <p>Practicing consistently on LeetCode.</p>
+            </div>
+
+            <div class="achievement-box">
+                <i class="fa-solid fa-laptop-code"></i>
+                <h3>Web Development</h3>
+                <p>Building modern and responsive websites.</p>
+            </div>
+
+            <div class="achievement-box">
+                <i class="fa-solid fa-code"></i>
+                <h3>MERN Stack Learner</h3>
+                <p>Learning Full Stack Development.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- CONTACT SECTION -->
+
+    <section class="contact" id="contact">
+
+        <h2 class="section-title">Contact Me</h2>
+
+        <form action="#">
+
+            <input type="text" placeholder="Your Name" required>
+
+            <input type="email" placeholder="Your Email" required>
+
+            <textarea rows="6" placeholder="Your Message"></textarea>
+
+            <button type="submit" class="btn">
+                Send Message
+            </button>
+
+        </form>
+
+    </section>
+
+    <!-- FOOTER -->
+
+    <footer class="footer">
+
+        <p>
+            © 2026 Sunny Raj. All Rights Reserved.
+        </p>
+
+    </footer>
+
+    <script src="script.js"></script>
 
 </body>
 
