@@ -1,287 +1,553 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sunny Raj | Portfolio</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sunny Raj | Aspiring MERN Stack Developer &amp; Software Engineer</title>
+  <meta name="description" content="Portfolio of Sunny Raj — Computer Science student, aspiring MERN Stack Developer, C++ programmer and DSA enthusiast. 300+ LeetCode problems solved. Explore projects, skills and journey." />
+  <meta name="keywords" content="Sunny Raj, MERN Stack Developer, Frontend Developer, C++ Programmer, DSA, Portfolio" />
+  <meta name="author" content="Sunny Raj" />
 
-    <link rel="stylesheet" href="style.css">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Sunny Raj | Aspiring MERN Stack Developer" />
+  <meta property="og:description" content="Computer Science student building modern web applications and solving DSA problems in C++." />
+  <meta property="og:type" content="website" />
 
-    <!-- Font Awesome -->
-    <link rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <!-- Favicon (inline SVG, no external request) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90' fill='%2338BDF8'%3E%3C/%3E%3C/text%3E%3C/svg%3E" />
+
+  <!-- Fonts: Space Grotesk (display), Inter (body), JetBrains Mono (code accents) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
 </head>
-
 <body>
 
-    <!-- HEADER -->
+  <!-- ============ LOADING SCREEN ============ -->
+  <div class="loader" id="loader" aria-hidden="true">
+    <div class="loader-inner">
+      <span class="loader-bracket">&lt;</span>
+      <span class="loader-text">Sunny<span class="loader-dot">.</span>Raj</span>
+      <span class="loader-bracket">/&gt;</span>
+      <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+    </div>
+  </div>
 
-    <header class="header">
+  <!-- ============ SCROLL PROGRESS BAR ============ -->
+  <div class="scroll-progress" id="scrollProgress"></div>
 
-        <a href="#home" class="logo">Portfolio.</a>
+  <!-- ============ CURSOR GLOW (desktop only, decorative) ============ -->
+  <div class="cursor-glow" id="cursorGlow" aria-hidden="true"></div>
 
-        <nav class="navbar">
-            <a href="#home" class="active">Home</a>
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="#projects">Projects</a>
-            <a href="#achievements">Achievements</a>
-            <a href="#contact">Contact</a>
-        </nav>
+  <!-- ============ PARTICLE BACKGROUND ============ -->
+  <canvas id="particleCanvas" aria-hidden="true"></canvas>
 
-    </header>
+  <!-- ============ SKIP LINK (Accessibility) ============ -->
+  <a href="#home" class="skip-link">Skip to main content</a>
 
-    <!-- HOME SECTION -->
+  <!-- ============ NAVBAR ============ -->
+  <header class="navbar" id="navbar">
+    <nav class="nav-container" aria-label="Primary">
+      <a href="#home" class="nav-logo">
+        <span class="logo-bracket">&lt;</span>Sunny<span class="logo-accent">Raj</span><span class="logo-bracket">/&gt;</span>
+      </a>
 
-    <section class="home" id="home">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home" class="nav-link active-link">Home</a></li>
+        <li><a href="#about" class="nav-link">About</a></li>
+        <li><a href="#skills" class="nav-link">Skills</a></li>
+        <li><a href="#learning" class="nav-link">Learning</a></li>
+        <li><a href="#projects" class="nav-link">Projects</a></li>
+        <li><a href="#achievements" class="nav-link">Achievements</a></li>
+        <li><a href="#education" class="nav-link">Education</a></li>
+        <li><a href="#contact" class="nav-link">Contact</a></li>
+      </ul>
 
-        <div class="home-content">
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle light and dark theme" title="Toggle theme">
+          <svg class="icon-moon" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+          <svg class="icon-sun" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+        </button>
 
-            <h3>Hello, It's Me</h3>
+        <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false" aria-controls="navLinks">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+  </header>
 
-            <h1>Sunny Raj</h1>
+  <main id="home">
 
-            <h3>
-                And I'm a
-                <span class="typing">Frontend Developer</span>
-            </h3>
+    <!-- ============ HERO / HOME SECTION ============ -->
+    <section class="hero" aria-label="Introduction">
+      <div class="hero-shapes" aria-hidden="true">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+      </div>
 
+      <div class="container hero-grid">
+        <div class="hero-content reveal">
+          <p class="hero-eyebrow"><span class="pulse-dot"></span> Open to Internships &amp; Full-time SDE Roles</p>
+
+          <h1 class="hero-title">
+            Hi, I'm <span class="gradient-text">Sunny Raj</span>
+          </h1>
+
+          <h2 class="hero-role">
+            <span id="typingText" class="typing-text"></span><span class="typing-cursor" aria-hidden="true">|</span>
+          </h2>
+
+          <p class="hero-summary">
+            I'm a Computer Science student passionate about building modern web applications and solving real-world problems. I enjoy cracking Data Structures &amp; Algorithms problems in C++, crafting responsive websites, and constantly leveling up my stack. My goal: become a skilled <strong>MERN Stack Developer</strong> and ship software that matters.
+          </p>
+
+          <div class="hero-buttons">
+            <a href="#" class="btn btn-primary ripple" download>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              Download Resume
+            </a>
+            <a href="#projects" class="btn btn-secondary ripple">
+              View Projects
+            </a>
+            <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="btn btn-icon ripple" aria-label="GitHub Profile" title="GitHub">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.1.83-.27.83-.58v-2.02c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.74.08-.74 1.2.09 1.84 1.24 1.84 1.24 1.08 1.84 2.83 1.31 3.52 1 .1-.79.42-1.31.76-1.62-2.66-.3-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.6-2.81 5.62-5.49 5.92.43.37.81 1.1.81 2.22v3.29c0 .31.22.69.83.57A12 12 0 0 0 12 .3"/></svg>
+            </a>
+            <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" class="btn btn-icon ripple" aria-label="LinkedIn Profile" title="LinkedIn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+            </a>
+          </div>
+
+          <div class="hero-stats">
+            <div class="stat">
+              <span class="stat-number" data-target="300" data-suffix="+">0</span>
+              <span class="stat-label">LeetCode Solved</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number" data-target="8" data-suffix="">0</span>
+              <span class="stat-label">Tech Currently Learning</span>
+            </div>
+            <div class="stat">
+              <span class="stat-number" data-target="1" data-suffix="+">0</span>
+              <span class="stat-label">Projects Shipped</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="hero-visual reveal">
+          <!-- Signature element: glassmorphic IDE / terminal window -->
+          <div class="code-window" role="img" aria-label="Code editor window showing Sunny Raj's developer profile object">
+            <div class="code-window-header">
+              <span class="dot dot-red"></span>
+              <span class="dot dot-yellow"></span>
+              <span class="dot dot-green"></span>
+              <span class="code-window-title">developer.js</span>
+            </div>
+            <div class="code-window-body">
+<pre><code><span class="c-key">const</span> <span class="c-var">developer</span> = {
+  <span class="c-prop">name</span>: <span class="c-str">"Sunny Raj"</span>,
+  <span class="c-prop">role</span>: <span class="c-str">"CS Student"</span>,
+  <span class="c-prop">stack</span>: [<span class="c-str">"C++"</span>, <span class="c-str">"JS"</span>, <span class="c-str">"HTML"</span>, <span class="c-str">"CSS"</span>],
+  <span class="c-prop">learning</span>: [<span class="c-str">"React"</span>, <span class="c-str">"Node"</span>, <span class="c-str">"MongoDB"</span>],
+  <span class="c-prop">leetcode</span>: <span class="c-num">300</span><span class="c-op">+</span>,
+  <span class="c-prop">available</span>: <span class="c-bool">true</span>,
+  <span class="c-prop">goal</span>: () <span class="c-op">=&gt;</span> <span class="c-str">"MERN Stack Engineer"</span>
+};
+
+<span class="c-comment">// building the future, one commit at a time</span>
+<span class="c-key">console</span>.<span class="c-prop">log</span>(developer.<span class="c-prop">goal</span>());</code></pre>
+            </div>
+          </div>
+          <div class="code-window-glow" aria-hidden="true"></div>
+        </div>
+      </div>
+
+      <a href="#about" class="scroll-indicator" aria-label="Scroll to About section">
+        <span class="scroll-mouse"><span class="scroll-wheel"></span></span>
+      </a>
+    </section>
+
+    <!-- ============ ABOUT SECTION ============ -->
+    <section class="section" id="about">
+      <div class="container">
+        <p class="section-eyebrow reveal">01 — Get to know me</p>
+        <h2 class="section-title reveal">About <span class="gradient-text">Me</span></h2>
+
+        <div class="about-grid">
+          <div class="about-text reveal">
             <p>
-                Aspiring Software Developer passionate about Web Development,
-                Data Structures & Algorithms, and problem-solving. Currently
-                learning the MERN Stack and improving my coding skills through
-                consistent LeetCode practice. Dedicated to building efficient,
-                user-friendly applications and continuously expanding my
-                technical expertise.
+              I'm Sunny Raj, a Computer Science student who genuinely loves the process of turning logic into
+              working software. My journey started with C++ and Data Structures &amp; Algorithms — that's where I
+              learned to think in terms of efficiency, edge cases, and clean problem-solving.
+            </p>
+            <p>
+              From there, I moved into the web: HTML, CSS and JavaScript let me bring designs to life and build
+              interfaces people can actually use. Right now, I'm deep in the process of becoming a
+              <strong> MERN Stack Developer</strong> — layering React, Node.js, Express and MongoDB on top of the
+              fundamentals I've already built.
+            </p>
+            <p>
+              I care about writing readable code, understanding the "why" behind a pattern, and shipping things
+              that work end-to-end. When I'm not coding, I'm probably solving a LeetCode problem or reading about
+              system design.
             </p>
 
-            <!-- SOCIAL ICONS -->
-
-            <div class="social-media">
-
-                <a href="https://github.com/sunnyraj1701" target="_blank">
-                    <i class="fa-brands fa-github"></i>
-                </a>
-
-                <a href="#" target="_blank">
-                    <i class="fa-brands fa-linkedin-in"></i>
-                </a>
-
-                <a href="#" target="_blank">
-                    <i class="fa-solid fa-envelope"></i>
-                </a>
-
+            <div class="about-highlights">
+              <div class="highlight-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+                <span>DSA-first problem solving mindset</span>
+              </div>
+              <div class="highlight-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M16 18l6-6-6-6M8 6l-6 6 6 6"/></svg>
+                <span>Comfortable across the HTML/CSS/JS fundamentals</span>
+              </div>
+              <div class="highlight-item">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14M22 4L12 14.01l-3-3"/></svg>
+                <span>Actively building toward full MERN proficiency</span>
+              </div>
             </div>
+          </div>
 
-            <!-- BUTTONS -->
-
-            <div class="buttons">
-
-                <a href="#" class="btn">
-                    Download CV
-                </a>
-
-                <a href="#projects" class="btn btn2">
-                    View Projects
-                </a>
-
+          <div class="about-card reveal">
+            <div class="glass-card about-info-card">
+              <h3>Quick Info</h3>
+              <ul class="info-list">
+                <li><span>Role</span><strong>Aspiring MERN Developer</strong></li>
+                <li><span>Focus</span><strong>Frontend + DSA</strong></li>
+                <li><span>Language</span><strong>C++, JavaScript</strong></li>
+                <li><span>Status</span><strong>Open to Internships</strong></li>
+                <li><span>Based in</span><strong>India</strong></li>
+              </ul>
+              <a href="#contact" class="btn btn-primary btn-block ripple">Let's Connect</a>
             </div>
-
+          </div>
         </div>
-
-        <!-- TECH STACK BOX -->
-
-        <div class="tech-box">
-
-            <div class="card">
-                <i class="fa-solid fa-code"></i>
-                <h2>DSA</h2>
-            </div>
-
-            <div class="card">
-                <i class="fa-brands fa-html5"></i>
-                <h2>HTML</h2>
-            </div>
-
-            <div class="card">
-                <i class="fa-brands fa-css3-alt"></i>
-                <h2>CSS</h2>
-            </div>
-
-            <div class="card">
-                <i class="fa-brands fa-js"></i>
-                <h2>JavaScript</h2>
-            </div>
-
-            <div class="card">
-                <i class="fa-brands fa-react"></i>
-                <h2>React</h2>
-            </div>
-
-            <div class="card">
-                <i class="fa-brands fa-github"></i>
-                <h2>GitHub</h2>
-            </div>
-
-        </div>
-
+      </div>
     </section>
 
-    <!-- ABOUT SECTION -->
+    <!-- ============ SKILLS SECTION ============ -->
+    <section class="section section-alt" id="skills">
+      <div class="container">
+        <p class="section-eyebrow reveal">02 — What I work with</p>
+        <h2 class="section-title reveal">Current <span class="gradient-text">Skills</span></h2>
+        <p class="section-subtitle reveal">The tools and concepts I already use with confidence.</p>
 
-    <section class="about" id="about">
+        <div class="skills-grid">
+          <div class="glass-card skill-card reveal">
+            <div class="skill-icon-wrap">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            </div>
+            <h3>Programming</h3>
+            <div class="tag-list">
+              <span class="tag">C++</span>
+              <span class="tag">JavaScript</span>
+            </div>
+          </div>
 
-        <h2 class="section-title">About Me</h2>
+          <div class="glass-card skill-card reveal">
+            <div class="skill-icon-wrap">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 0 0 1 1h3v-6h6v6h3a1 1 0 0 0 1-1V10"/></svg>
+            </div>
+            <h3>Web</h3>
+            <div class="tag-list">
+              <span class="tag">HTML5</span>
+              <span class="tag">CSS3</span>
+              <span class="tag">Responsive Design</span>
+            </div>
+          </div>
 
-        <div class="about-content">
+          <div class="glass-card skill-card reveal">
+            <div class="skill-icon-wrap">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </div>
+            <h3>Problem Solving</h3>
+            <div class="tag-list">
+              <span class="tag">Data Structures</span>
+              <span class="tag">Algorithms</span>
+              <span class="tag">OOP</span>
+            </div>
+          </div>
 
-            <p>
-                I am a Computer Science student and aspiring Software Developer
-                with a strong interest in Web Development, Data Structures &
-                Algorithms, and Problem Solving.
-
-                I enjoy building modern web applications and continuously
-                improving my coding skills through LeetCode and personal
-                projects. My current focus is learning the MERN Stack and
-                becoming a Full Stack Developer.
-            </p>
-
+          <div class="glass-card skill-card reveal">
+            <div class="skill-icon-wrap">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+            </div>
+            <h3>Tools</h3>
+            <div class="tag-list">
+              <span class="tag">Git</span>
+              <span class="tag">GitHub</span>
+              <span class="tag">VS Code</span>
+            </div>
+          </div>
         </div>
-
+      </div>
     </section>
 
-    <!-- SKILLS SECTION -->
+    <!-- ============ CURRENTLY LEARNING SECTION ============ -->
+    <section class="section" id="learning">
+      <div class="container">
+        <p class="section-eyebrow reveal">03 — Leveling up</p>
+        <h2 class="section-title reveal">Currently <span class="gradient-text">Learning</span></h2>
+        <p class="section-subtitle reveal">Actively building toward full MERN stack proficiency — one topic at a time.</p>
 
-    <section class="skills" id="skills">
-
-        <h2 class="section-title">Skills</h2>
-
-        <div class="skills-container">
-
-            <div class="skill-box">C++</div>
-            <div class="skill-box">Data Structures</div>
-            <div class="skill-box">Algorithms</div>
-            <div class="skill-box">HTML</div>
-            <div class="skill-box">CSS</div>
-            <div class="skill-box">JavaScript</div>
-            <div class="skill-box">React</div>
-            <div class="skill-box">Git</div>
-            <div class="skill-box">GitHub</div>
-
+        <div class="learning-grid">
+          <div class="learning-chip reveal"><span class="chip-dot"></span>React.js</div>
+          <div class="learning-chip reveal"><span class="chip-dot"></span>Node.js</div>
+          <div class="learning-chip reveal"><span class="chip-dot"></span>Express.js</div>
+          <div class="learning-chip reveal"><span class="chip-dot"></span>MongoDB</div>
+          <div class="learning-chip reveal"><span class="chip-dot"></span>REST APIs</div>
+          <div class="learning-chip reveal"><span class="chip-dot"></span>JWT Authentication</div>
+          <div class="learning-chip reveal"><span class="chip-dot"></span>Tailwind CSS</div>
+          <div class="learning-chip reveal"><span class="chip-dot"></span>Next.js</div>
         </div>
 
-    </section>
-
-    <!-- PROJECTS SECTION -->
-
-    <section class="projects" id="projects">
-
-        <h2 class="section-title">Projects</h2>
-
-        <div class="projects-container">
-
-            <div class="project-card">
-                <h3>Personal Portfolio Website</h3>
-
-                <p>
-                    Responsive portfolio website developed using HTML, CSS and
-                    JavaScript.
-                </p>
-
-                <a href="#" class="project-btn">View Project</a>
-            </div>
-
-            <div class="project-card">
-                <h3>LeetCode Solutions Repository</h3>
-
-                <p>
-                    Collection of Data Structures and Algorithms solutions in
-                    C++.
-                </p>
-
-                <a href="#" class="project-btn">GitHub</a>
-            </div>
-
-            <div class="project-card">
-                <h3>Population Growth Simulator</h3>
-
-                <p>
-                    Python-based project demonstrating recurrence relations and
-                    growth prediction.
-                </p>
-
-                <a href="#" class="project-btn">View Project</a>
-            </div>
-
+        <div class="learning-progress reveal">
+          <div class="progress-track">
+            <div class="progress-fill" data-progress="35"></div>
+          </div>
+          <p class="progress-caption">MERN stack journey — steadily in progress</p>
         </div>
-
+      </div>
     </section>
 
-    <!-- ACHIEVEMENTS SECTION -->
+    <!-- ============ PROJECTS SECTION ============ -->
+    <section class="section section-alt" id="projects">
+      <div class="container">
+        <p class="section-eyebrow reveal">04 — What I've built</p>
+        <h2 class="section-title reveal">Featured <span class="gradient-text">Projects</span></h2>
+        <p class="section-subtitle reveal">A look at the work I've shipped so far — more on the way as I grow into MERN.</p>
 
-    <section class="achievements" id="achievements">
-
-        <h2 class="section-title">Achievements</h2>
-
-        <div class="achievement-container">
-
-            <div class="achievement-box">
-                <i class="fa-solid fa-trophy"></i>
-                <h3>300+ Problems Solved</h3>
-                <p>Practicing consistently on LeetCode.</p>
+        <div class="projects-grid">
+          <article class="glass-card project-card reveal">
+            <div class="project-image">
+              <svg viewBox="0 0 400 240" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Preview illustration of the personal portfolio website">
+                <defs>
+                  <linearGradient id="pgrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0%" stop-color="#38BDF8" stop-opacity="0.35"/>
+                    <stop offset="100%" stop-color="#06B6D4" stop-opacity="0.15"/>
+                  </linearGradient>
+                </defs>
+                <rect width="400" height="240" fill="url(#pgrad)"/>
+                <rect x="24" y="24" width="352" height="24" rx="6" fill="#0F172A" fill-opacity="0.6"/>
+                <circle cx="40" cy="36" r="4" fill="#38BDF8"/>
+                <circle cx="54" cy="36" r="4" fill="#38BDF8" fill-opacity="0.6"/>
+                <circle cx="68" cy="36" r="4" fill="#38BDF8" fill-opacity="0.3"/>
+                <rect x="24" y="64" width="160" height="14" rx="4" fill="#38BDF8" fill-opacity="0.8"/>
+                <rect x="24" y="88" width="220" height="10" rx="3" fill="#E2E8F0" fill-opacity="0.5"/>
+                <rect x="24" y="104" width="180" height="10" rx="3" fill="#E2E8F0" fill-opacity="0.3"/>
+                <rect x="24" y="130" width="100" height="34" rx="8" fill="#38BDF8" fill-opacity="0.9"/>
+                <rect x="136" y="130" width="100" height="34" rx="8" fill="none" stroke="#38BDF8" stroke-opacity="0.7" stroke-width="2"/>
+                <rect x="24" y="184" width="352" height="32" rx="6" fill="#0F172A" fill-opacity="0.5"/>
+              </svg>
             </div>
-
-            <div class="achievement-box">
-                <i class="fa-solid fa-laptop-code"></i>
-                <h3>Web Development</h3>
-                <p>Building modern and responsive websites.</p>
+            <div class="project-body">
+              <h3>Personal Portfolio Website</h3>
+              <p>A fully responsive, animated developer portfolio built from scratch — glassmorphism UI, scroll reveals, dark theme, and a custom typing effect, all with zero frameworks.</p>
+              <div class="tag-list">
+                <span class="tag tag-tech">HTML</span>
+                <span class="tag tag-tech">CSS</span>
+                <span class="tag tag-tech">JavaScript</span>
+              </div>
+              <div class="project-links">
+                <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm ripple">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.1.83-.27.83-.58v-2.02c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.74.08-.74 1.2.09 1.84 1.24 1.84 1.24 1.08 1.84 2.83 1.31 3.52 1 .1-.79.42-1.31.76-1.62-2.66-.3-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.6-2.81 5.62-5.49 5.92.43.37.81 1.1.81 2.22v3.29c0 .31.22.69.83.57A12 12 0 0 0 12 .3"/></svg>
+                  Code
+                </a>
+                <a href="#" class="btn btn-primary btn-sm ripple">
+                  Live Demo
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M7 7h10v10"/></svg>
+                </a>
+              </div>
             </div>
+          </article>
 
-            <div class="achievement-box">
-                <i class="fa-solid fa-code"></i>
-                <h3>MERN Stack Learner</h3>
-                <p>Learning Full Stack Development.</p>
+          <!-- Placeholder card inviting more projects as skills grow -->
+          <article class="glass-card project-card project-card-ghost reveal">
+            <div class="ghost-content">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 5v14M5 12h14"/></svg>
+              <h3>More Projects Coming Soon</h3>
+              <p>Building MERN stack projects as I complete my React, Node.js and MongoDB learning path.</p>
             </div>
-
+          </article>
         </div>
-
+      </div>
     </section>
 
-    <!-- CONTACT SECTION -->
+    <!-- ============ ACHIEVEMENTS SECTION ============ -->
+    <section class="section" id="achievements">
+      <div class="container">
+        <p class="section-eyebrow reveal">05 — Track record</p>
+        <h2 class="section-title reveal">Achievements</h2>
 
-    <section class="contact" id="contact">
+        <div class="achievements-grid">
+          <div class="glass-card achievement-card reveal">
+            <div class="achievement-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="4 17 10 11 4 5"/><line x1="12" y1="19" x2="20" y2="19"/></svg>
+            </div>
+            <span class="achievement-number" data-target="300" data-suffix="+">0</span>
+            <p>LeetCode Problems Solved</p>
+          </div>
 
-        <h2 class="section-title">Contact Me</h2>
+          <div class="glass-card achievement-card reveal">
+            <div class="achievement-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20V10M18 20V4M6 20v-4"/></svg>
+            </div>
+            <span class="achievement-static">Strong DSA</span>
+            <p>Understanding of Core Data Structures &amp; Algorithms</p>
+          </div>
 
-        <form action="#">
+          <div class="glass-card achievement-card reveal">
+            <div class="achievement-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+            </div>
+            <span class="achievement-static">Active</span>
+            <p>Consistent GitHub Contributor</p>
+          </div>
 
-            <input type="text" placeholder="Your Name" required>
+          <div class="glass-card achievement-card reveal">
+            <div class="achievement-icon">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h7l-1 8 10-12h-7l1-8z"/></svg>
+            </div>
+            <span class="achievement-static">In Progress</span>
+            <p>Learning the Full MERN Stack</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-            <input type="email" placeholder="Your Email" required>
+    <!-- ============ EDUCATION SECTION ============ -->
+    <section class="section section-alt" id="education">
+      <div class="container">
+        <p class="section-eyebrow reveal">06 — Academic background</p>
+        <h2 class="section-title reveal">Education</h2>
 
-            <textarea rows="6" placeholder="Your Message"></textarea>
+        <div class="timeline reveal">
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="glass-card timeline-card">
+              <h3>Bachelor of Computer Science</h3>
+              <p class="timeline-meta">Computer Science &amp; Engineering</p>
+              <p>Focused on programming fundamentals, data structures &amp; algorithms, object-oriented design, and web development — building the foundation for a career as a software engineer.</p>
+            </div>
+          </div>
 
-            <button type="submit" class="btn">
-                Send Message
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <div class="glass-card timeline-card">
+              <h3>Higher Secondary Education</h3>
+              <p class="timeline-meta">Science Stream</p>
+              <p>Built a strong base in mathematics and logical reasoning — the groundwork that later fueled a passion for problem-solving and programming.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CONTACT SECTION ============ -->
+    <section class="section" id="contact">
+      <div class="container">
+        <p class="section-eyebrow reveal">07 — Get in touch</p>
+        <h2 class="section-title reveal">Let's Build Something <span class="gradient-text">Together</span></h2>
+        <p class="section-subtitle reveal">Have an internship opportunity, a project idea, or just want to talk tech? My inbox is open.</p>
+
+        <div class="contact-grid">
+          <form class="glass-card contact-form reveal" id="contactForm" novalidate>
+            <div class="form-row">
+              <label for="name">Name</label>
+              <input type="text" id="name" name="name" placeholder="Your name" required />
+              <span class="form-error" id="nameError"></span>
+            </div>
+            <div class="form-row">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" required />
+              <span class="form-error" id="emailError"></span>
+            </div>
+            <div class="form-row">
+              <label for="message">Message</label>
+              <textarea id="message" name="message" rows="5" placeholder="Tell me about the opportunity or idea..." required></textarea>
+              <span class="form-error" id="messageError"></span>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block ripple">
+              Send Message
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
             </button>
+            <p class="form-success" id="formSuccess" role="status" aria-live="polite">Message sent! I'll get back to you soon. ✅</p>
+          </form>
 
-        </form>
+          <div class="contact-side reveal">
+            <div class="glass-card contact-info-card">
+              <h3>Contact Info</h3>
+              <a href="mailto:sunnyraj.dev@example.com" class="contact-line">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z" opacity="0"/><path d="M22 6l-10 7L2 6"/><path d="M2 6h20v12H2z"/></svg>
+                sunnyraj.dev@example.com
+              </a>
+              <a href="https://github.com/" target="_blank" rel="noopener noreferrer" class="contact-line">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.1.83-.27.83-.58v-2.02c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.74.08-.74 1.2.09 1.84 1.24 1.84 1.24 1.08 1.84 2.83 1.31 3.52 1 .1-.79.42-1.31.76-1.62-2.66-.3-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.6-2.81 5.62-5.49 5.92.43.37.81 1.1.81 2.22v3.29c0 .31.22.69.83.57A12 12 0 0 0 12 .3"/></svg>
+                github.com/sunnyraj
+              </a>
+              <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" class="contact-line">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+                linkedin.com/in/sunnyraj
+              </a>
+            </div>
 
+            <div class="glass-card availability-card">
+              <span class="pulse-dot"></span>
+              <p>Currently available for <strong>internships</strong> and <strong>entry-level SDE roles</strong>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <!-- FOOTER -->
+  </main>
 
-    <footer class="footer">
+  <!-- ============ FOOTER ============ -->
+  <footer class="footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <a href="#home" class="nav-logo">
+          <span class="logo-bracket">&lt;</span>Sunny<span class="logo-accent">Raj</span><span class="logo-bracket">/&gt;</span>
+        </a>
+        <p>Aspiring MERN Stack Developer &amp; Software Engineer, building one project at a time.</p>
+      </div>
 
-        <p>
-            © 2026 Sunny Raj. All Rights Reserved.
-        </p>
+      <div class="footer-links">
+        <h4>Navigate</h4>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+      </div>
 
-    </footer>
+      <div class="footer-social">
+        <h4>Connect</h4>
+        <div class="footer-social-icons">
+          <a href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .3a12 12 0 0 0-3.8 23.38c.6.1.83-.27.83-.58v-2.02c-3.34.73-4.04-1.6-4.04-1.6-.55-1.4-1.34-1.77-1.34-1.77-1.1-.75.08-.74.08-.74 1.2.09 1.84 1.24 1.84 1.24 1.08 1.84 2.83 1.31 3.52 1 .1-.79.42-1.31.76-1.62-2.66-.3-5.47-1.34-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.29-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.6-2.81 5.62-5.49 5.92.43.37.81 1.1.81 2.22v3.29c0 .31.22.69.83.57A12 12 0 0 0 12 .3"/></svg>
+          </a>
+          <a href="https://linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.03-1.85-3.03-1.86 0-2.14 1.45-2.14 2.94v5.66H9.36V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+          </a>
+          <a href="mailto:sunnyraj.dev@example.com" aria-label="Email">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 6l-10 7L2 6"/><path d="M2 6h20v12H2z"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
 
-    <script src="script.js"></script>
+    <div class="footer-bottom">
+      <p>&copy; <span id="year"></span> Sunny Raj. Built with HTML, CSS &amp; JavaScript — no frameworks.</p>
+    </div>
+  </footer>
 
+  <!-- ============ BACK TO TOP ============ -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+  </button>
+
+  <script src="script.js"></script>
 </body>
-
 </html>
