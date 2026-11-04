@@ -1,0 +1,107 @@
+@import "../style.css";
+
+:root {
+  color-scheme: dark;
+}
+
+html[data-theme="light"] {
+  color-scheme: light;
+}
+
+body {
+  min-width: 320px;
+}
+
+.contact-form button:disabled {
+  cursor: wait;
+  opacity: 0.7;
+}
+
+.contact-form .form-success.show {
+  display: block;
+}
+
+.contact-form .form-error:not(:empty) {
+  display: block;
+}
+
+.contact-form input.invalid,
+.contact-form textarea.invalid {
+  border-color: #f87171;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+}
+
+.website-field {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+}
+
+.highlight-check {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.coming-icon {
+  display: inline-block;
+  color: var(--accent);
+  font-size: 2rem;
+  margin-bottom: 12px;
+}
+
+.contact-intro {
+  color: var(--text-dim);
+  margin-bottom: 12px;
+}
+
+.contact-line span {
+  color: var(--accent);
+  font-weight: 700;
+  min-width: 18px;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.reveal.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-content,
+.hero-visual,
+.section .reveal {
+  animation: fade-up 0.7s ease both;
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
