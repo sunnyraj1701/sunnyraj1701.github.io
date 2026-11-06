@@ -7,13 +7,38 @@ const maxRequestBytes = 10_000;
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 export async function POST(request: Request) {
+  const contentLength = Number(request.headers.get("content-length") || 0);
+  if (Number.isFinite(contentLength) && contentLength > maxRequestBytes) {
+    return NextResponse.json({ error: "Message is too large." }, { status: 413 });
+  }
+
   let payload: unknown;
   try {
-    const body = await request.text();
-    if (new TextEncoder().encode(body).byteLength > maxRequestBytes) {
-      return NextResponse.json({ error: "Message is too large." }, { status: 413 });
+    const reader = request.body?.getReader();
+    if (!reader) {
+      return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
     }
-    payload = JSON.parse(body);
+
+    const chunks: Uint8Array[] = [];
+    let totalBytes = 0;
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      totalBytes += value.byteLength;
+      if (totalBytes > maxRequestBytes) {
+        await reader.cancel();
+        return NextResponse.json({ error: "Message is too large." }, { status: 413 });
+      }
+      chunks.push(value);
+    }
+
+    const bytes = new Uint8Array(totalBytes);
+    let offset = 0;
+    for (const chunk of chunks) {
+      bytes.set(chunk, offset);
+      offset += chunk.byteLength;
+    }
+    payload = JSON.parse(new TextDecoder().decode(bytes));
   } catch {
     return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
   }
