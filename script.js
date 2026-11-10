@@ -5,6 +5,7 @@
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   /* ------------------------------------------------------------------
      1. LOADING SCREEN
@@ -41,7 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
       if (scrollY >= top) currentId = section.id;
     });
     navLinkEls.forEach((link) => {
-      link.classList.toggle('active-link', link.getAttribute('href') === `#${currentId}`);
+      const isActive = link.getAttribute('href') === `#${currentId}`;
+      link.classList.toggle('active-link', isActive);
+      if (isActive) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
     });
   }
   window.addEventListener('scroll', onScroll, { passive: true });
@@ -54,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const navLinks = document.getElementById('navLinks');
 
   function closeMenu() {
+    if (!hamburger || !navLinks) return;
     hamburger.classList.remove('open');
     navLinks.classList.remove('open');
     hamburger.setAttribute('aria-expanded', 'false');
@@ -66,18 +71,35 @@ document.addEventListener('DOMContentLoaded', () => {
       hamburger.setAttribute('aria-expanded', String(isOpen));
     });
     navLinkEls.forEach((link) => link.addEventListener('click', closeMenu));
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && navLinks.classList.contains('open')) {
+        closeMenu();
+        hamburger.focus();
+      }
+    });
+    document.addEventListener('click', (event) => {
+      if (event.target instanceof Element && navLinks.classList.contains('open') && !event.target.closest('.nav-container')) closeMenu();
+    });
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 720) closeMenu();
+    });
   }
 
   /* ------------------------------------------------------------------
-     4. THEME TOGGLE (Dark / Light) — persists for the session
+     4. THEME TOGGLE (Dark / Light) — persists between visits
   ------------------------------------------------------------------ */
   const themeToggle = document.getElementById('themeToggle');
-  let currentTheme = 'dark';
-  try { currentTheme = window.__savedTheme || 'dark'; } catch (e) { /* noop */ }
+  const savedTheme = (() => {
+    try { return window.localStorage.getItem('portfolio-theme'); } catch { return null; }
+  })();
+  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  let currentTheme = savedTheme === 'light' || savedTheme === 'dark'
+    ? savedTheme
+    : prefersLight ? 'light' : 'dark';
 
   function applyTheme(theme) {
-    document.body.classList.toggle('light-theme', theme === 'light');
-    window.__savedTheme = theme; // in-memory only (no localStorage per artifact rules)
+    document.documentElement.dataset.theme = theme;
+    if (themeToggle) themeToggle.setAttribute('aria-label', `Switch to ${theme === 'light' ? 'dark' : 'light'} theme`);
   }
   applyTheme(currentTheme);
 
@@ -85,6 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
     themeToggle.addEventListener('click', () => {
       currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
       applyTheme(currentTheme);
+      try { window.localStorage.setItem('portfolio-theme', currentTheme); } catch { /* Theme still applies for this visit. */ }
     });
   }
 
@@ -99,7 +122,9 @@ document.addEventListener('DOMContentLoaded', () => {
     'Problem Solver'
   ];
 
-  if (typingText) {
+  if (typingText && reduceMotion) {
+    typingText.textContent = roles[0];
+  } else if (typingText) {
     let roleIndex = 0;
     let charIndex = 0;
     let isDeleting = false;
@@ -158,6 +183,10 @@ document.addEventListener('DOMContentLoaded', () => {
   function animateCounter(el) {
     const target = parseInt(el.getAttribute('data-target'), 10) || 0;
     const suffix = el.getAttribute('data-suffix') || '';
+    if (reduceMotion) {
+      el.textContent = target + suffix;
+      return;
+    }
     const duration = 1600;
     const startTime = performance.now();
 
@@ -236,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
   ------------------------------------------------------------------ */
   if (backToTop) {
     backToTop.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
     });
   }
 
@@ -302,8 +331,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const ctx = canvas.getContext('2d');
     let particles = [];
     let width, height;
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
     function resizeCanvas() {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
@@ -347,7 +374,7 @@ document.addEventListener('DOMContentLoaded', () => {
      15. LIGHT PARALLAX ON HERO SHAPES
   ------------------------------------------------------------------ */
   const shapes = document.querySelectorAll('.shape');
-  if (shapes.length && window.matchMedia('(hover: hover)').matches) {
+  if (shapes.length && !reduceMotion && window.matchMedia('(hover: hover)').matches) {
     window.addEventListener('mousemove', (e) => {
       const xRatio = (e.clientX / window.innerWidth) - 0.5;
       const yRatio = (e.clientY / window.innerHeight) - 0.5;
@@ -365,12 +392,12 @@ document.addEventListener('DOMContentLoaded', () => {
     anchor.addEventListener('click', function (e) {
       const targetId = this.getAttribute('href');
       if (targetId.length <= 1) return;
-      const target = document.querySelector(targetId);
+      const target = document.getElementById(targetId.slice(1));
       if (!target) return;
       e.preventDefault();
-      const offset = document.getElementById('navbar').offsetHeight;
+      const offset = navbar ? navbar.offsetHeight : 0;
       const top = target.getBoundingClientRect().top + window.scrollY - offset + 1;
-      window.scrollTo({ top, behavior: 'smooth' });
+      window.scrollTo({ top, behavior: reduceMotion ? 'auto' : 'smooth' });
     });
   });
 
