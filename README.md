@@ -1,6 +1,6 @@
 # Sunny Raj Portfolio
 
-A full-stack portfolio built with Next.js, TypeScript, and SQLite.
+A full-stack personal portfolio built with Next.js and TypeScript, with SQLite for contact-message storage.
 
 ## Run locally
 
