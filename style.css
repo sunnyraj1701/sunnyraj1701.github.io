@@ -1,15 +1,15 @@
 /* ============ TOKENS ============ */
 :root {
-  --bg: #0C1020;
-  --bg-alt: #12172B;
-  --surface: rgba(255, 255, 255, 0.055);
-  --surface-border: rgba(196, 181, 253, 0.14);
-  --text: #F3F0FF;
-  --text-dim: #AAA8BE;
-  --accent: #A78BFA;
-  --accent-2: #F472B6;
-  --accent-soft: rgba(167, 139, 250, 0.14);
-  --accent-ink: #171126;
+  --bg: #0B1220;
+  --bg-alt: #111827;
+  --surface: rgba(148, 163, 184, 0.075);
+  --surface-border: rgba(148, 163, 184, 0.16);
+  --text: #F8FAFC;
+  --text-dim: #AAB6C8;
+  --accent: #38BDF8;
+  --accent-2: #2DD4BF;
+  --accent-soft: rgba(56, 189, 248, 0.12);
+  --accent-ink: #082F49;
   --font-display: "Space Grotesk", sans-serif;
   --font-body: "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
@@ -18,15 +18,15 @@
 }
 
 [data-theme="light"] {
-  --bg: #FAF8FF;
-  --bg-alt: #F1EDFA;
-  --surface: rgba(255, 255, 255, 0.76);
-  --surface-border: rgba(76, 45, 145, 0.12);
-  --text: #25213A;
-  --text-dim: #625D76;
-  --accent: #6D4AFF;
-  --accent-2: #D94680;
-  --accent-soft: rgba(109, 74, 255, 0.1);
+  --bg: #F7F9FC;
+  --bg-alt: #EDF3F8;
+  --surface: rgba(255, 255, 255, 0.88);
+  --surface-border: rgba(51, 65, 85, 0.14);
+  --text: #1E293B;
+  --text-dim: #5F6F82;
+  --accent: #0369A1;
+  --accent-2: #0F766E;
+  --accent-soft: rgba(3, 105, 161, 0.09);
   --accent-ink: #FFFFFF;
 }
 
@@ -179,8 +179,8 @@ a { color: inherit; text-decoration: none; }
 .code-window-title { margin-left: 8px; font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-dim); }
 .code-window-body { padding: 20px; overflow-x: auto; }
 .code-window-body pre { font-family: var(--font-mono); font-size: 0.82rem; line-height: 1.7; }
-.c-key { color: #C084FC; } .c-var { color: #38BDF8; } .c-prop { color: #7DD3FC; }
-.c-str { color: #86EFAC; } .c-num { color: #FBBF24; } .c-bool { color: #FB923C; }
+.c-key { color: #C4B5FD; } .c-var { color: #38BDF8; } .c-prop { color: #7DD3FC; }
+.c-str { color: #86EFAC; } .c-num { color: #FBBF24; } .c-bool { color: #5EEAD4; }
 .c-op { color: var(--text-dim); } .c-comment { color: #64748B; font-style: italic; }
 .code-window-glow {
   position: absolute; inset: -20px; z-index: -1; background: radial-gradient(circle, var(--accent-soft), transparent 70%);
